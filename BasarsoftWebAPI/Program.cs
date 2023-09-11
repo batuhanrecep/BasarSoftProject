@@ -15,13 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-
-//
 builder.Services.AddControllers().AddControllersAsServices();
 
-builder.Services.AddScoped<ControllerBase, DoorsController > ();
+builder.Services.AddScoped<ControllerBase, DoorsController>();
 builder.Services.AddScoped<IBasarsoftDbContext, BasarsoftDbContext>();
 builder.Services.AddScoped<DbContext, BasarsoftDbContext>();
+
+
 builder.Services.AddScoped<IDoorService, DoorService>();
 builder.Services.AddScoped<IDoorDal, EfDoorDal>();
 
