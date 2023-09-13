@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using System;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using BasarsoftWebAPI.Controllers;
 using Business.Abstract;
 using Business.Concrete;
+using Business.DependencyResolvers.AutoFac;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.EntityFramework.Contexts;
@@ -22,8 +25,14 @@ builder.Services.AddScoped<IBasarsoftDbContext, BasarsoftDbContext>();
 builder.Services.AddScoped<DbContext, BasarsoftDbContext>();
 
 
-builder.Services.AddScoped<IDoorService, DoorService>();
-builder.Services.AddScoped<IDoorDal, EfDoorDal>();
+//builder.Services.AddScoped<IDoorService, DoorService>();
+//builder.Services.AddScoped<IDoorDal, EfDoorDal>();
+
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
+
 
 builder.Services.AddDbContext<BasarsoftDbContext>(options =>
 {
