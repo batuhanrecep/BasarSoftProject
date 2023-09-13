@@ -20,11 +20,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddControllers().AddControllersAsServices();
 
-builder.Services.AddScoped<ControllerBase, DoorsController>();
-builder.Services.AddScoped<IBasarsoftDbContext, BasarsoftDbContext>();
-builder.Services.AddScoped<DbContext, BasarsoftDbContext>();
 
-
+//Before Autofac
+//builder.Services.AddScoped<ControllerBase, DoorsController>(); / gereksiz
+//builder.Services.AddScoped<IBasarsoftDbContext, BasarsoftDbContext>(); / gereksiz
+//builder.Services.AddScoped<DbContext, BasarsoftDbContext>(); / gereksiz
 //builder.Services.AddScoped<IDoorService, DoorService>();
 //builder.Services.AddScoped<IDoorDal, EfDoorDal>();
 
@@ -41,7 +41,7 @@ builder.Services.AddDbContext<BasarsoftDbContext>(options =>
     //options.UseNpgsql(configuration.GetConnectionString("WebApiDatabase"));
 });
 
-
+    
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
