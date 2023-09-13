@@ -6,11 +6,15 @@ using BasarsoftWebAPI.Controllers;
 using Business.Abstract;
 using Business.Concrete;
 using Business.DependencyResolvers.AutoFac;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.EntityFramework.Contexts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +52,38 @@ builder.Services.AddDbContext<BasarsoftDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+var Configuration = builder.Configuration;
+
+var tokenOptions = Configuration.GetSection(key: "TokenOptions").Get<TokenOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+
+{
+
+    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+
+    {
+
+        ValidateIssuer = true,
+
+        ValidateAudience = true,
+
+        ValidateLifetime = true,
+
+        ValidIssuer = tokenOptions.Issuer,
+
+        ValidAudience = tokenOptions.Audience,
+
+        ValidateIssuerSigningKey = true,
+
+        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+
+
+
+    };
+
+});
 
 
 
