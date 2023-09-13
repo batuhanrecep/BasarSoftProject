@@ -25,10 +25,10 @@ builder.Services.AddControllers();
 builder.Services.AddControllers().AddControllersAsServices();
 
 
-//Before Autofac
-//builder.Services.AddScoped<ControllerBase, DoorsController>(); / gereksiz
-//builder.Services.AddScoped<IBasarsoftDbContext, BasarsoftDbContext>(); / gereksiz
-//builder.Services.AddScoped<DbContext, BasarsoftDbContext>(); / gereksiz
+////Before Autofac
+//builder.Services.AddScoped<ControllerBase, DoorsController>(); 
+//builder.Services.AddScoped<IBasarsoftDbContext, BasarsoftDbContext>(); 
+//builder.Services.AddScoped<DbContext, BasarsoftDbContext>(); 
 //builder.Services.AddScoped<IDoorService, DoorService>();
 //builder.Services.AddScoped<IDoorDal, EfDoorDal>();
 
@@ -52,6 +52,13 @@ builder.Services.AddDbContext<BasarsoftDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddCors(p => p.AddPolicy("AllowOrigin", builder =>
+
+//{
+
+//    builder.WithOrigins("https://localhosst:71x84").AllowAnyMethod().AllowAnyHeader();
+
+//}));
 
 var Configuration = builder.Configuration;
 
@@ -64,7 +71,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
 
     {
-
         ValidateIssuer = true,
 
         ValidateAudience = true,
@@ -78,9 +84,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
 
         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
-
-
-
+        
     };
 
 });
