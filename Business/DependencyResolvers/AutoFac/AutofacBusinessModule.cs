@@ -20,11 +20,13 @@ namespace Business.DependencyResolvers.AutoFac
             builder.RegisterType<DoorService>().As<IDoorService>();
             builder.RegisterType<EfDoorDal>().As<IDoorDal>();
 
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+
             //builder.RegisterType<CategoryManager>().As<ICategoryService>();
             //builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
 
-            //builder.RegisterType<UserManager>().As<IUserService>();
-            //builder.RegisterType<EfUserDal>().As<IUserDal>();
 
             //builder.RegisterType<AuthManager>().As<IAuthService>();
             //builder.RegisterType<JwtHelper>().As<ITokenHelper>();
