@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Dtos;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace BasarsoftWebAPI.Controllers
         }
 
         [HttpPost("login")]
+        [EnableCors("AllowSpecificOrigin")]
         public ActionResult Login(UserForLoginDto userForLoginDto)
         {
             var userToLogin = _authService.Login(userForLoginDto);
@@ -35,6 +37,7 @@ namespace BasarsoftWebAPI.Controllers
         }
 
         [HttpPost("register")]
+        [EnableCors("AllowSpecificOrigin")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
         {
             var userExists = _authService.UserExists(userForRegisterDto.Email);
