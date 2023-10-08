@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BasarsoftDbContext))]
-    [Migration("20230913214232_init")]
+    [Migration("20230919220841_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -103,6 +103,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DoorId"));
+
+                    b.Property<string>("DoorName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<double>("DoorX")
                         .HasColumnType("double precision");

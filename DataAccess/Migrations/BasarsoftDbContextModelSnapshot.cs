@@ -101,6 +101,10 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DoorId"));
 
+                    b.Property<string>("DoorName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<double>("DoorX")
                         .HasColumnType("double precision");
 

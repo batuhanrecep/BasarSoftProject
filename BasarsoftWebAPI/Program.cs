@@ -35,17 +35,27 @@ builder.Services.AddControllers().AddControllersAsServices();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
-builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
+builder.Host.ConfigureContainer<ContainerBuilder>
+    (builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 
 builder.Services.AddDbContext<BasarsoftDbContext>(options =>
-{
-    var serviceProvider = builder.Services.BuildServiceProvider();
-    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-    //options.UseNpgsql(configuration.GetConnectionString("WebApiDatabase"));
-});
+{   var serviceProvider = builder.Services.BuildServiceProvider();
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>(); });
 
-    
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder
+            .WithOrigins("http://localhost:44444") // Replace with your frontend domain
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+}); 
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -99,6 +109,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowSpecificOrigins");
 
 app.UseHttpsRedirection();
 

@@ -11,6 +11,7 @@ namespace Entities.Concrete
     {
 
         public int DoorId { get; set; }
+        public string DoorName { get; set; }
         public double DoorX { get; set; }
         public double DoorY { get; set; }
 

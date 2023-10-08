@@ -17,6 +17,7 @@ namespace DataAccess.Migrations
                 {
                     DoorId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DoorName = table.Column<string>(type: "text", nullable: false),
                     DoorX = table.Column<double>(type: "double precision", nullable: false),
                     DoorY = table.Column<double>(type: "double precision", nullable: false)
                 },
